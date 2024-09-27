@@ -20,7 +20,7 @@
           <v-list dense>
             <!-- Iterate over Proxy object properties using Object.keys or Object.entries -->
             <v-list-item v-model="item.text" v-for="key in Object.keys(item.student)" :key="key">
-              <v-list-item-content>
+              
                 <v-list-item-title>{{ key }}</v-list-item-title>
                 <v-list-item-title>
                   <!-- Display value based on type -->
@@ -51,7 +51,7 @@
                     {{ student[key] }}
                   </span>
                 </v-list-item-title>
-              </v-list-item-content>
+              
             </v-list-item>
           </v-list>
         </v-card>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { fetchStudentById } from '@/stores/data-services';
+import { fetchStudentById, insertNewStudent, insertNewUser } from '@/stores/data-services';
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -155,6 +155,11 @@ export default {
             { title: 'Family', text: 'family', student: student_family.value }
         ];
 
+    async function submitNewStudent(){
+      const data = await insertNewStudent({newStudent:[student_general.value,student_personal.value,student_contact.value,student_family.value],student_image_url,uploadedImage});
+      alert("SUCCESSFULL");
+    }
+
     async function loadStudentById() {
 
       console.log("######## Student Detail Edit ####");
@@ -165,64 +170,64 @@ export default {
 
       // Assign values to respective sections
       student_general.value = {
-        academic_year: studentData.academic_year,
-        student_code: studentData.student_code,
-        admission_number: studentData.admission_number,
-        admission_date: studentData.admission_date,
-        stream_opted: studentData.stream_opted,
-        joining_date: studentData.joining_date,
+        academic_year: student.academic_year,
+        student_code: student.student_code,
+        admission_number: student.admission_number,
+        admission_date: student.admission_date,
+        stream_opted: student.stream_opted,
+        joining_date: student.joining_date,
       };
       student_personal.value = {
-          student_image_url: studentData.student_image_url,
-          student_name: studentData.student_name,
-          gender: studentData.gender,
-          date_of_birth: studentData.date_of_birth,
-          blood_group: studentData.blood_group,
-          mother_tongue: studentData.mother_tongue,
-          social_category: studentData.social_category,
-          minority_group: studentData.minority_group,
-          out_of_school_child: studentData.out_of_school_child,
-          mainstreamed: studentData.mainstreamed,
-          impairment_type: studentData.impairment_type,
-          identification_mark: studentData.identification_mark,
-          previous_school: studentData.previous_school,
-          religion: studentData.religion,
-          remark: studentData.remark,
+          student_image_url: student.student_image_url,
+          student_name: student.student_name,
+          gender: student.gender,
+          date_of_birth: student.date_of_birth,
+          blood_group: student.blood_group,
+          mother_tongue: student.mother_tongue,
+          social_category: student.social_category,
+          minority_group: student.minority_group,
+          out_of_school_child: student.out_of_school_child,
+          mainstreamed: student.mainstreamed,
+          impairment_type: student.impairment_type,
+          identification_mark: student.identification_mark,
+          previous_school: student.previous_school,
+          religion: student.religion,
+          remark: student.remark,
         };
   
         student_contact.value = {
-          permanent_address_id: studentData.permanent_address_id,
-          present_address_id: studentData.present_address_id,
-          pincode: studentData.pincode,
-          mobile_number: studentData.mobile_number,
-          alternate_mobile: studentData.alternate_mobile,
-          email: studentData.email,
+          permanent_address_id: student.permanent_address_id,
+          present_address_id: student.present_address_id,
+          pincode: student.pincode,
+          mobile_number: student.mobile_number,
+          alternate_mobile: student.alternate_mobile,
+          email: student.email,
         };
   
         student_family.value = {
-          mother_name: studentData.mother_name,
-          father_name: studentData.father_name,
-          guardian_name: studentData.guardian_name,
-          nid_number: studentData.nid_number,
-          birth_certificate: studentData.birth_certificate,
-          guardian_id: studentData.guardian_id,
+          mother_name: student.mother_name,
+          father_name: student.father_name,
+          guardian_name: student.guardian_name,
+          nid_number: student.nid_number,
+          birth_certificate: student.birth_certificate,
+          guardian_id: student.guardian_id,
         };
   
         student_education.value = {
-          class_id: studentData.class_id,
-          roll_no: studentData.roll_no,
-          previous_school: studentData.previous_school,
-          previous_class: studentData.previous_class,
-          previous_exam_status: studentData.previous_exam_status,
-          exam_result: studentData.exam_result,
-          exam_percentage: studentData.exam_percentage,
-          scholarships: studentData.scholarships,
-          extracurricular: studentData.extracurricular,
-          sub_group: studentData.sub_group,
+          class_id: student.class_id,
+          roll_no: student.roll_no,
+          previous_school: student.previous_school,
+          previous_class: student.previous_class,
+          previous_exam_status: student.previous_exam_status,
+          exam_result: student.exam_result,
+          exam_percentage: student.exam_percentage,
+          scholarships: student.scholarships,
+          extracurricular: student.extracurricular,
+          sub_group: student.sub_group,
         };
   
         student_attendance.value = {
-          attendance_last_year: studentData.attendance_last_year,
+          attendance_last_year: student.attendance_last_year,
         };
 
 
@@ -234,7 +239,7 @@ export default {
     // Example: Fetch student data based on ID
     onMounted(() => {
       console.log('Student ID:', id.value);
-      // Fetch data based on ID, e.g., fetchStudentData(id.value);
+      // Fetch data based on ID, e.g., fetchstudent(id.value);
       loadStudentById();
       console.log("#### ON MOUNTED STUDENT DETAIL EDIT ####### ");
       console.log(student.value);
@@ -247,6 +252,7 @@ export default {
       items,
       student,
       loadStudentById,
+      submitNewStudent,
 
     };
   },

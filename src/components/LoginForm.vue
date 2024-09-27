@@ -13,7 +13,12 @@
       prepend-inner-icon="mdi-lock-outline" variant="outlined" />
 
     <template v-if="errorMsg">
-      <v-text class="text-red">{{ errorMsg }}</v-text>
+      <v-alert>
+        <v-alert-title>
+          Error
+        </v-alert-title>
+        {{ errorMsg }}
+      </v-alert>
     </template>
 
     <v-btn class="mb-8" color="blue" size="large" variant="tonal" block @click="login">

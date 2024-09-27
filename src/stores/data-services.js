@@ -52,6 +52,7 @@ export async function fetchUsers() {
     }
 }
 
+
 export async function insertNewUser({ formData }) {
     try {
         const { data, error } = await supabase
@@ -110,25 +111,27 @@ export async function fetchNavigations() {
 // ###################### STUDENTS ########################################
 
 // Insert new student with image upload
-export async function insertNewStudent({ newStudent, student_image_url, uploadedImage }) {
+export async function insertNewStudent({ newStudent, uploadedImage }) {
     try {
         // let imageUrl = ''; 
         if (uploadedImage.value) {
-            const { data, error } = await supabase.storage
-                .from('student-images')
-                .upload(`${uploadedImage.value.name}`, uploadedImage.value);
-            if (error) throw new Error(error.message);
-            // imageUrl = data.path;
-
-
-            const { d, insertError } = await supabase.from('students').insert([{ ...newStudent.value, student_image_url: (supabaseStorageUrl + `/student-images/${uploadedImage.value.name}`) }]);
-            if (insertError) throw new Error(insertError.message);
-            return { d };
+          const { data, error } = await supabase.storage
+            .from('student-images')
+            .upload(`${uploadedImage.value.name}`, uploadedImage.value);
+          if (error) throw new Error(error.message);
+          // imageUrl = data.path;
         }
-    } catch (err) {
-        console.error('Error inserting student:', err);
+
+        newStudent.student_image_url = supabaseStorageUrl+`/student-images/${uploadedImage.value.name}`;
+        console.log("NEW STUDENT TO INSERT ########## ",newStudent);
+        const { data1,error: insertError } = await supabase.from('students').insert(newStudent);
+        if (insertError) throw new Error(insertError.message);
+        return data1;
+      } catch (err) {
+        console.error('Error inserting staff:', err);
+      }
     }
-}
+
 
 export async function fetchStudents() {
     try {

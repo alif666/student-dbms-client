@@ -107,7 +107,7 @@ export default {
 
         };
 
-        const navigateTo=(path)=>{
+    const navigateTo=(path)=>{
     router.push(path);
   }
   const navigateToStudentEdit = ({id})=>{
