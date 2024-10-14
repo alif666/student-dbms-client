@@ -1,37 +1,43 @@
 <template>
+  <v-app-bar prominent>
+    <!-- Navigation Icon -->
+    <v-app-bar-nav-icon class="custom-nav-icon" @click.stop="drawer = !drawer">
+      <v-img src="@/assets/nav_icon.png" alt="Nav Icon" class="icon-image" width="24" height="24" contain />
+    </v-app-bar-nav-icon>
 
-  <v-app-bar color="primary" prominent>
-    <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
+    <!-- App Title -->
     <v-toolbar-title>Student DBMS</v-toolbar-title>
 
     <v-spacer></v-spacer>
 
+    <!-- User Icon Button (visible only on medium and up screens) -->
     <template v-if="$vuetify.display.mdAndUp">
-      <v-btn icon="mdi-magnify" variant="text"></v-btn>
-
-      <v-btn icon="mdi-filter" variant="text"></v-btn>
+      <v-btn  >
+        <v-img src="@/assets/user_placeholder.png" alt="User Icon" rounded class="icon-image" width="36" height="36" contain />
+      </v-btn>
     </template>
-
-    <v-btn icon="mdi-exit-run" variant="text" @click="userLogout"></v-btn>
-
-
   </v-app-bar>
+
+  <!-- Navigation Drawer -->
   <v-navigation-drawer v-model="drawer" :location="$vuetify.display.mobile ? 'bottom' : undefined" temporary>
     <v-divider />
-    <v-list v-for="item in items" :key="item.id" density="compact" nav>
-      <v-list-item :title="item.nav_text" :prepend-icon="item.nav_icon"
+
+    <!-- Navigation Items List -->
+    <v-list density="compact" nav>
+      <v-list-item
+        v-for="item in items"
+        :key="item.id"
+        :title="item.nav_text"
+        :prepend-icon="item.nav_icon"
         @click="navigateTo(`/${item.nav_path}`)"
-        />
+      />
     </v-list>
-
   </v-navigation-drawer>
-
-
-
 </template>
 
-<script setup>
+  <!-- </template> -->
+
+  <script setup>
 import { fetchNavigations } from '@/stores/data-services';
 
 import { ref, onMounted } from 'vue';
@@ -69,3 +75,20 @@ const userLogout = () => {
   router.push('/');
 };
 </script>
+
+  <style scoped>
+    .custom-nav-icon {
+      background-color: transparent;
+      /* Makes the inside transparent */
+      border-radius: 50%;
+      /* Makes the icon outline rounded */
+      width: 48px;
+      /* Set a width for the nav icon */
+      height: 48px;
+      /* Set a height for the nav icon */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+  </style>

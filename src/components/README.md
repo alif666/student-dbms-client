@@ -1,6 +1,8 @@
 # Components
 
 Vue template files in this folder are automatically imported.
+Total marks validation
+exceptions in exam form
 
 ## 🚀 Usage
 

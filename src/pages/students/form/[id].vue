@@ -4,6 +4,6 @@ import StudentApplicationForm from '@/components/StudentApplicationForm.vue';
 
 <template>
 <StudentApplicationForm/>
-  </template>
+</template>
   
  

@@ -1,5 +1,82 @@
 import { supabase, supabaseStorageUrl } from './supabase';
 
+
+
+// ##################### EXAM MODULE #############################
+
+// ################################################# FETCH SCHOOL INFO
+export async function fetchSchoolById({id}) {
+    try {
+        const { data, error } = await supabase.from('school').select('*').eq('id',id);
+        if (error) throw new Error(error.message);
+        console.log("School FETCHED FROM DB ###############");
+        console.log(data[0]);
+        return data[0];
+        
+    } catch (err) {
+        console.error('Error fetching School data:', err);
+    }
+}
+
+// ################################################## FETCH LOOKUPS
+
+// FETCH CLASS_NAME_LOOKUPS
+export async function fetchClassNameLookup() {
+    try {
+        const { data, error } = await supabase.from('class_name_lookup').select('*');
+        if (error) throw new Error(error.message);
+        console.log("CLass Names FETCHED FROM DB ###############");
+        console.log({data});
+        return  {data} ;
+    } catch (err) {
+        console.error('Error fetching Class Names data:', err);
+    }
+}
+
+
+// FETCH CLASS_GROUP_LOOKUPS
+export async function fetchClassGroupLookUp() {
+    try {
+        const { data, error } = await supabase.from('class_group').select('*');
+        if (error) throw new Error(error.message);
+        console.log("CLass Groups FETCHED FROM DB ###############");
+        console.log({data});
+        return  {data} ;
+    } catch (err) {
+        console.error('Error fetching Class Groups data:', err);
+    }
+}
+
+// FETCH CLASS SECTIONS LOOKUPS
+export async function fetchSectionLookup() {
+    try {
+        const { data, error } = await supabase.from('section_lookup').select('*');
+        if (error) throw new Error(error.message);
+        console.log("Section Lookup FETCHED FROM DB ###############");
+        console.log({data});
+        return  {data} ;
+    } catch (err) {
+        console.error('Error fetching Section Lookups data:', err);
+    }
+}
+
+// FETCH EXAM SUBJECT LOOKUPS
+export async function fetchSubjectLookUp() {
+    try {
+        const { data, error } = await supabase.from('subject_lookup').select('*');
+        if (error) throw new Error(error.message);
+        console.log("Subjects Lookup FETCHED FROM DB ###############");
+        console.log({data});
+        return  {data} ;
+    } catch (err) {
+        console.error('Error fetching Subject Lookups data:', err);
+    }
+}
+
+
+// ##################### EXAM MODULE ENDS #############################
+
+
 export async function authenticate({ email, password }) {
     console.log('#### authenticate ####');
     console.log(email);

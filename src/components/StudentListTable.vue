@@ -110,12 +110,8 @@ export default {
     const navigateTo=(path)=>{
     router.push(path);
   }
-  const navigateToStudentEdit = ({id})=>{
-    router.push(`/students/${id}?action=edit`);
-  }
-  const navigateToStudentDetail = ({id})=>{
-    router.push(`/students/${id}`);
-  }
+
+  
         onMounted(() => {
             fetchStudents();
             loadStudents();

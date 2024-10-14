@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --host 192.168.204.231 --port 4173",
     "lint": "eslint . --fix --ignore-path .gitignore"
   },
   "dependencies": {
@@ -13,11 +13,17 @@
     "autoprefixer": "^10.4.20",
     "core-js": "^3.37.1",
     "date-fns": "^4.1.0",
+    "docx": "^8.5.0",
+    "docx-preview": "^0.3.2",
+    "docxtemplater": "^3.50.0",
     "dropzone-vue": "^0.1.11",
+    "file-saver": "^2.0.5",
+    "pizzip": "^3.1.7",
     "roboto-fontface": "*",
     "vue": "^3.4.31",
     "vue3-cookies": "^1.0.6",
-    "vuetify": "^3.6.11"
+    "vuetify": "^3.6.11",
+    "vuetify-pro-tiptap": "^2.5.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",

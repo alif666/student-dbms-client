@@ -10,7 +10,9 @@
                         <span v-else>
                             <v-card-title>Student Application</v-card-title>
                         </span>
+                        
                         <template v-slot:extension>
+                            
                             <v-tabs v-model="tab" align-tabs="title">
                                 <v-tab v-for="item in items" :key="item.title" v-text="item.title"
                                     :value="item.title"></v-tab>
@@ -69,7 +71,7 @@
                                     <v-text-field label="Mobile Number" v-model="student_contact.mobile_number" />
                                     <v-text-field label="Alternate Mobile" v-model="student_contact.alternate_mobile" />
                                     <v-text-field label="Pincode" v-model="student_contact.pincode" />
-                                    <v-text-field type = "email" label="Email" :rules="emailValidRules" v-model="student_contact.email"/>
+                                    <v-text-field type = "email" label="Email" :rules="emailValidRules" suffix="@gmail.com" v-model="student_contact.email"/>
                                 </span>
 
                                 <span v-else-if="item.title === 'Family'">
@@ -123,9 +125,6 @@ import { insertNewStudent } from '@/stores/data-services';
 
 export default {
     setup() {
-
-
-
         const router=useRouter();
         const route = useRoute();
         const id = ref(route.params.id);
@@ -392,8 +391,8 @@ export default {
             if (id.value === 'add') {
                 console.log("########## new form ##########");
             } else {
+                console.log(id.value + " ######## EDIT FLAG ############## ");
                 loadStudentById();
-                console.log(id.value);
             }
             validateForm();
 
