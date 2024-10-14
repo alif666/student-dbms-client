@@ -1,34 +1,27 @@
 <template>
-            <v-text-field v-model="exam_question_model.time_duration" :active="menu2" :focus="menu2" :label="labelProps"
-                append-inner-icon="mdi-clock-time-four-outline"  readonly >
-                <v-menu v-model="menu2" :close-on-content-click="false" activator="parent"
-                    transition="scale-transition">
-                    <v-time-picker v-if="menu2" v-model="exam_question_model.time_duration" title="Duration of Exam" ></v-time-picker>
-                </v-menu>
-            </v-text-field>
+      <v-row>
+          <v-col cols="6">
+            <v-text-field v-model="examStore.exam_question_model.time_duration_hours" prepend-icon="mdi-clock" :rules="totalMarksHoursRules" type="number" label="Duration (hh)" min="1" max="24"   step="1" variant="solo-filled"
+          hint="Duration of Exam (Hours)" />
+          </v-col>
+          <v-col cols="6">
+            <v-text-field v-model="examStore.exam_question_model.time_duration_minutes" prepend-icon="mdi-clock-outline" :rules="totalMarksMinutesRules" type="number" label="Duration (minutes)" min="1" max="60" step="1" variant="solo-filled"
+          hint="Duration of Exam (Minutes)" />
+          </v-col>
+        </v-row>
 </template>
 
 <script setup>
 import { useExamQuestionModelStore } from '@/stores/examQuestionModelStore';
-import { VTimePicker } from 'vuetify/labs/components';
-const props = defineProps({
-    labelProps : String,
-    // handleOnChange: Function,
 
-});
-
-// const time = ref(null);
-const menu2 = ref(false);
 const examStore = useExamQuestionModelStore();
-const exam_question_model = examStore.exam_question_model;
-exam_question_model.time_duration = ref(null);
 
-// const onTimeChange = () =>{
-//     e.preventDefault();
-    
-//     console.log("### OnTIMECHANGE");
-//     if(props.handleOnChange){
-//         props.handleOnChange = time.value;
-//     }
-// }
+const totalMarksHoursRules = [
+    v=> !!v && (v>=1 && v<24) || "Maximum hours in a day is 24"
+];
+
+const totalMarksMinutesRules = [
+    v=> !!v && (v>=0 && v<60) || "Maximum 60 minutes in an hour"
+];
+
 </script>

@@ -8,9 +8,10 @@ export const useExamQuestionModelStore = defineStore('examQuestionModelStore', {
       total_marks: ref(0),
       actual_total_marks: ref(0), // Add this field for actual total marks
       remaining_total_marks: ref(0),
-      time_duration: ref(null),
+      time_duration_hours: ref(1),
+      time_duration_minutes: ref(0),
       exam_subject: ref(null),
-      exam_date: ref(format(new Date('1990-01-01'), 'MM/dd/yyyy')),
+      exam_date: ref(format(new Date('2024-01-01'), 'yyyy-MM-dd')),
       exam_for_class: ref(null),
       class_section: ref(null),
       exam_category: ref(null),
@@ -34,7 +35,7 @@ export const useExamQuestionModelStore = defineStore('examQuestionModelStore', {
       } else if (this.exam_question_model.exam_subject === null) {
         console.log("exam_subject is null");
         return false;
-      } else if (this.exam_question_model.exam_date === format(new Date('1990-01-01'), 'MM/dd/yyyy')) {
+      } else if (this.exam_question_model.exam_date === format(new Date('2024-01-01'), 'yyyy-MM-dd')) {
         console.log("exam_date is not updated");
         return false;
       } else if (this.exam_question_model.exam_for_class === null) {

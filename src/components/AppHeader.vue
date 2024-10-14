@@ -19,7 +19,7 @@
   </v-app-bar>
 
   <!-- Navigation Drawer -->
-  <v-navigation-drawer v-model="drawer" :location="$vuetify.display.mobile ? 'bottom' : undefined" temporary>
+  <v-navigation-drawer elevation="4" image="@/assets/backgrounds/nav_bg.jpg" permanent rail>
     <v-divider />
 
     <!-- Navigation Items List -->
@@ -29,6 +29,19 @@
         :key="item.id"
         :title="item.nav_text"
         :prepend-icon="item.nav_icon"
+        @click="navigateTo(`/${item.nav_path}`)"
+      />
+    </v-list>
+  </v-navigation-drawer>
+  <v-navigation-drawer v-model="drawer" elevation="4" image="@/assets/backgrounds/nav_bg.jpg" :location="$vuetify.display.mobile ? 'bottom' : undefined">
+    <v-divider />
+
+    <!-- Navigation Items List -->
+    <v-list density="compact" nav>
+      <v-list-item
+        v-for="item in items"
+        :key="item.id"
+        :title="item.nav_text"
         @click="navigateTo(`/${item.nav_path}`)"
       />
     </v-list>

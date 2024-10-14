@@ -2,7 +2,7 @@
   "name": "student-dbms-client",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 192.168.204.231 --port 4173",
     "build": "vite build",
     "preview": "vite preview --host 192.168.204.231 --port 4173",
     "lint": "eslint . --fix --ignore-path .gitignore"

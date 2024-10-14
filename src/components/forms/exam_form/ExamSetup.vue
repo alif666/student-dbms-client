@@ -4,17 +4,16 @@
     <v-sheet class="ma-2 pa-2">
       <CardElement header_title="Class Information">
 
-        <!-- Exam Date -->
-        <v-text-field type="date" v-model="examStore.exam_question_model.exam_date"
-          label="Exam Date (mm/dd/yy)"></v-text-field>
-        <v-text-field type="text" v-model="examStore.exam_question_model.exam_year"
-          label="Exam Year : (20**/**)"></v-text-field>
-        <!-- exam_subject -->
-        <v-autocomplete v-model="examStore.exam_question_model.exam_category" label="Exam Category: "
+        <v-date-input center-affix v-model="examStore.exam_question_model.exam_date"
+          label="Date of Exam"/>
+        <v-text-field type="text" prepend-icon="mdi-calendar"  v-model="examStore.exam_question_model.exam_year"
+          label="Exam Year"/>
+        
+        <v-autocomplete prepend-icon="mdi-school"v-model="examStore.exam_question_model.exam_category" label="Exam Category: "
           :items="exam_categories" />
-        <v-autocomplete v-model="examStore.exam_question_model.exam_for_class" label="Exam for Class: " :items="classes"
+        <v-autocomplete prepend-icon="mdi-account-box-multiple" v-model="examStore.exam_question_model.exam_for_class" label="Exam for Class: " :items="classes"
           item-value="id" item-title="value_en" />
-        <v-autocomplete v-model="examStore.exam_question_model.class_section" label="Sections" :items="sections"
+        <v-autocomplete prepend-icon="mdi-account-box-multiple" v-model="examStore.exam_question_model.class_section" label="Sections" :items="sections"
           item-value="id" item-title="value_en" />
       </CardElement>
     </v-sheet>
@@ -28,16 +27,17 @@
 
         <!-- examStore.exam_question_model.total_marks -->
 
-        <v-text-field v-model.number="examStore.exam_question_model.total_marks" :rules="totalMarksRules" @input="(e) => {
+        <v-text-field v-model.number="examStore.exam_question_model.total_marks" prepend-icon="mdi-calculator" :rules="totalMarksRules" @input="(e) => {
           const value = e.target.value === '' ? 0 : Number(e.target.value);
           examStore.addFieldToSections('section_mark_each', value, n);
         }" type="number" label="Total Marks" min="0" step="1" variant="solo-filled"
           hint="Exam Total Marks" />
         <!-- duration -->
-        <TimeDurationInputField label-props="Pick Exam Duration" />
-
+  
+        <TimeDurationInputField />
+        
         <!-- Exam Subject -->
-        <v-autocomplete v-model="examStore.exam_question_model.exam_subject" label="Exam Subject" :items="exam_subjects"
+        <v-autocomplete v-model="examStore.exam_question_model.exam_subject" label="Exam Subject" prepend-icon="mdi-book-multiple" :items="exam_subjects"
           item-value="id" item-title="value_en" />
 
 
@@ -60,7 +60,11 @@
 <script setup>
 import { fetchClassNameLookup, fetchSectionLookup, fetchSubjectLookUp } from '@/stores/data-services';
 import { useExamQuestionModelStore } from '@/stores/examQuestionModelStore';
-import { format } from 'date-fns';
+import { onMounted } from 'vue';
+import { useDate } from 'vuetify';
+import { VDateInput } from 'vuetify/labs/components';
+
+const date = useDate();
 // const exam_subjects = ['English', 'Bangla', 'Math'];
 // const classes = ['Class I', 'Class II', 'Class III'];
 const exam_categories = ['Half Semester', 'Class Test', 'Final'];
@@ -127,6 +131,7 @@ const handleTimeChange = (selectedTime) => {
   duration.value = selectedTime;
   console.log('Selected duration:', duration.value);
 };
+
 
 
 // Validatoin Rules Ends

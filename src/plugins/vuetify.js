@@ -23,9 +23,13 @@ import { pl, zhHans } from 'vuetify/locale'
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
   locale: {
-    locale: 'zhHans',
-    // fallback: 'sv',
-    messages: { zhHans, pl },
+    locale: 'en',
+
+  },
+  date: {
+    locale: {
+      en: 'en-GB',
+    },
   },
   theme: {
     defaultTheme: 'light',
@@ -54,6 +58,7 @@ export default createVuetify({
     },
     VAvatar:{
       color:'#48AD64',
+    
     },
 
   },
