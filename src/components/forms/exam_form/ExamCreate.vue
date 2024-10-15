@@ -63,7 +63,7 @@
                             variant="elevated"
                             :prepend-icon="examStore.exam_question_model.remaining_total_marks === 0 ? 'mdi-check-bold' : 'mdi-calculator'"
                             class="position-fixed bottom-0 rounded-lg ma-5 pa-3">
-                         
+
                             <span class="font-weight-black mx-1">
                                 {{ examStore.exam_question_model.total_marks }}
                             </span>

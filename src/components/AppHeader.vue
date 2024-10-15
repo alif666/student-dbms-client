@@ -19,7 +19,7 @@
   </v-app-bar>
 
   <!-- Navigation Drawer -->
-  <v-navigation-drawer elevation="4" image="@/assets/backgrounds/nav_bg.jpg" permanent rail>
+  <v-navigation-drawer flat image="@/assets/backgrounds/nav_bg.jpg" permanent rail>
     <v-divider />
 
     <!-- Navigation Items List -->
@@ -33,7 +33,7 @@
       />
     </v-list>
   </v-navigation-drawer>
-  <v-navigation-drawer v-model="drawer" elevation="4" image="@/assets/backgrounds/nav_bg.jpg" :location="$vuetify.display.mobile ? 'bottom' : undefined">
+  <v-navigation-drawer v-model="drawer" elevation="4" :location="$vuetify.display.mobile ? 'bottom' : undefined">
     <v-divider />
 
     <!-- Navigation Items List -->

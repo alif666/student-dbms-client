@@ -16,11 +16,10 @@
     <v-select :items="question.question_options" v-model="question.correct_answer" />
   </template>
 </template>
-
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, toRaw } from 'vue';
 import { useExamQuestionModelStore } from '@/stores/examQuestionModelStore';
-import { toRaw } from 'vue';
+
 const examStore = useExamQuestionModelStore();
 
 // Define props for question category, section index (nProps), and question index (iProps)
@@ -29,16 +28,17 @@ const props = defineProps({
   iProps: Number, // Question index within the section
   nProps: Number, // Section index
   questionModel: {
-      type: Object,
-      required: true
-    },
-  emits:['handleChange'],
+    type: Object,
+    required: true,
+  },
 });
+
+const emit = defineEmits(['handleChange']); // Declare 'handleChange' event
 
 // Local state for the question data
 const question = ref({
   question_title: '',
-  question_options: ['', '', '', ''], // Default to empty options for MCQs or TRUE/FALSE
+  question_options: [], // Default to empty options for MCQs or TRUE/FALSE
   correct_answer: '',
   category: props.question_category,
 });
@@ -48,9 +48,11 @@ watch(
   () => toRaw(question.value), // Get a non-reactive version of the question object
   (newQuestion) => {
     examStore.updateQuestionInSection(props.nProps, props.iProps, 'question', toRaw(newQuestion));
+    emit('handleChange', toRaw(newQuestion)); // Emit handleChange event with the updated question data
   },
   { deep: true }
 );
+
 // Method to update question data from the store when the component is mounted
 onMounted(() => {
   const section = examStore.exam_question_model.sections[props.nProps - 1];
@@ -58,7 +60,4 @@ onMounted(() => {
     question.value = section.questions[props.iProps - 1]; // Load the existing question data
   }
 });
-
-
-
 </script>

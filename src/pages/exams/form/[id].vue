@@ -3,43 +3,45 @@
         <v-card>
             <ExamQuestionModel />
         </v-card>
-        <v-stepper v-model="exam_counter" alt-labels :editable="false" disabled="true" accordion>
+        <v-stepper v-model="exam_counter" :complete="exam_counter>steps" steps="4" alt-labels :editable="false"  disabled="true">
             <v-stepper-header class="pt-16 mt-2">
 
-                <v-stepper-item align="center" :value="1">
-
+                <v-stepper-item  align="center" :complete="exam_counter>'1'"  :value="1">
+                    
                     <span class="justify-space-evenly">
                         <StepperTopElementContainer itemProps="1" />
                     </span>
-                    <span class="mt-n6"> Setup Exam</span>
+                    <span class="mt-n6"> 
+                     Exam Details
+                    </span>
                 </v-stepper-item>
 
-                <v-divider></v-divider>
-
-                <v-stepper-item align="center" :value="2">
+                <v-divider length="align-content" :color="getDividerColor(1)" thickness="4px"></v-divider>
+               
+                <v-stepper-item align="center"   :value="2" :complete="exam_counter>'2'" >
 
                     <span class="justify-space-evenly">
                         <StepperTopElementContainer itemProps="2" />
                     </span>
-                    Create Exam
+                   Add Questions
                 </v-stepper-item>
 
-                <v-divider></v-divider>
-                <v-stepper-item align="center" :value="3">
+                <v-divider length="align-content"  :color="getDividerColor(2)" thickness="4px"></v-divider>
+                <v-stepper-item align="center"  :value="3" :complete="exam_counter>'3'" >
 
                     <span class="justify-space-evenly">
                         <StepperTopElementContainer itemProps="3" />
                     </span>
-                    Mark Distribution
+                   Preview
                 </v-stepper-item>
 
-                <v-divider></v-divider>
-                <v-stepper-item align="center" :value="4">
+                <v-divider length="align-content" :color="getDividerColor(3)" thickness="4px"></v-divider>
+                <v-stepper-item align="center"  :value="4" :complete="exam_counter>'4'" >
 
                     <span class="justify-space-between">
                         <StepperTopElementContainer itemProps="4" />
                     </span>
-                    Preview Exam
+                   Submissions
                 </v-stepper-item>
             </v-stepper-header>
 
@@ -95,18 +97,18 @@ import ExamCreate from '@/components/forms/exam_form/ExamCreate.vue';
 import ExamQuestionModel from '@/components/ExamQuestionModel.vue';
 import StepperTopElementContainer from '@/components/StepperTopElementContainer.vue';
 import { useExamQuestionModelStore } from '@/stores/examQuestionModelStore';
+import { VStepperItem } from 'vuetify/components';
 const examStore = useExamQuestionModelStore();
 const exam_counter = ref(1);
 
 // Stepper Action Methods
-const steps = ref(4); // Total number of steps
 
-function checkPrev(direction) {
-    if (direction === 'prev') {
-        return 'Previous';
-    }
-    return '';
-}
+
+const steps = ref(4); // Total number of steps
+// Method to check if a step is complete and set divider color
+const getDividerColor = (step) => {
+  return exam_counter.value > step ? '#48AD64' : '#E1E1E1';
+};
 
 const next = () => {
     if (exam_counter.value < steps.value) {
@@ -145,9 +147,11 @@ const disabled = (direction) => {
     background-color: black;
 }
 
-.v-btn.v-btn--disabled {
-    opacity: 0 !important;
-    pointer-events: none;
-    /* To prevent any interaction */
-}
+::v-deep .v-stepper-item--complete .v-stepper-item__avatar.v-avatar,
+::v-deep .v-stepper-item--selected .v-stepper-item__avatar.v-avatar{
+    background-color: #48AD64  !important; 
+    color: #FFFFFF !important;
+  } 
+
+ 
 </style>

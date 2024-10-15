@@ -1,5 +1,3 @@
-
-
 -- Create Room Table
 DROP TABLE IF EXISTS room;
 

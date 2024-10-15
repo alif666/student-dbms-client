@@ -10,7 +10,7 @@ import 'vuetify/styles'
 import { sv } from 'vuetify/locale'
 // Composables
 import { createVuetify } from 'vuetify'
-import { VBtn, VAppBar, VAvatar } from 'vuetify/components'
+import { VBtn, VAppBar, VAvatar,VDivider } from 'vuetify/components'
 // Translations provided by Vuetify
 import { pl, zhHans } from 'vuetify/locale'
 
@@ -57,9 +57,17 @@ export default createVuetify({
       variant: 'plain',
     },
     VAvatar:{
-      color:'#48AD64',
+      color:'#E1E1E1',
+
     
     },
+    VDivider:{
+      display: 'block',
+      flex:' 1 1 100%',
+      height: '0px',
+      opacity: '1.0',
+      transition: 'inherit',
+    }
 
   },
 })
