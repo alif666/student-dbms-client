@@ -17,9 +17,9 @@ console.log(props.itemProps);
                             </v-img>
                             <v-img v-else-if="itemProps==='2'" src="@/assets/create_question.png" alt="User Icon" rounded class="stepper_icon icon-image"
                             width="36" height="36" align="center" contain />
-                            <v-img v-else-if="itemProps==='3'" src="@/assets/mark_distribution.png" alt="User Icon" rounded class="stepper_icon icon-image"
+                            <v-img v-else-if="itemProps==='3'" src="@/assets/preview_exam.png" alt="User Icon" rounded class="stepper_icon icon-image"
                             width="36" height="36" align="center" contain />
-                            <v-img v-else-if="itemProps==='4'" src="@/assets/preview_exam.png" alt="User Icon" rounded class="stepper_icon icon-image"
+                            <v-img v-else-if="itemProps==='4'" src="@/assets/mark_distribution.png" alt="User Icon" rounded class="stepper_icon icon-image"
                             width="36" height="36" align="center" contain />
                             <v-spacer/>
                             

@@ -9,9 +9,9 @@
         <v-text-field type="text" prepend-icon="mdi-calendar"  v-model="examStore.exam_question_model.exam_year"
           label="Exam Year"/>
         
-        <v-autocomplete prepend-icon="mdi-school"v-model="examStore.exam_question_model.exam_category" label="Exam Category: "
+        <v-autocomplete prepend-icon="mdi-school"v-model="examStore.exam_question_model.exam_category" label="Type of Exam "
           :items="exam_categories" />
-        <v-autocomplete prepend-icon="mdi-account-box-multiple" v-model="examStore.exam_question_model.exam_for_class" label="Exam for Class: " :items="classes"
+        <v-autocomplete prepend-icon="mdi-account-box-multiple" v-model="examStore.exam_question_model.exam_for_class" label="Class " :items="classes"
           item-value="id" item-title="value_en" />
         <v-autocomplete prepend-icon="mdi-account-box-multiple" v-model="examStore.exam_question_model.class_section" label="Sections" :items="sections"
           item-value="id" item-title="value_en" />
@@ -22,7 +22,8 @@
     <!-- Exam Information Section -->
     <v-sheet class="ma-2 pa-2">
       <CardElement header_title="Exam Information">
-
+        <v-text-field type="text" prepend-icon="mdi-school"  v-model="examStore.exam_question_model.exam_name"
+          label="Name of Exam" :hint="(examStore.exam_question_model.exam_for_class&&examStore.exam_question_model.exam_category)? examStore.exam_question_model.exam_category+' | '+examStore.exam_question_model.exam_year+' | Class'+examStore.exam_question_model.exam_for_class:'Display on Heading Section'"/>
 
 
         <!-- examStore.exam_question_model.total_marks -->

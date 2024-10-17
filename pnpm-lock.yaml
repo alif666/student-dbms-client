@@ -50,6 +50,12 @@ importers:
       vue-doc-exporter:
         specifier: ^1.3.2
         version: 1.3.2(@algolia/client-search@4.24.0)(postcss@8.4.47)(sass@1.77.6)(search-insights@2.17.2)
+      vue-document-editor:
+        specifier: ^2.3.2
+        version: 2.3.2
+      vue-file-toolbar-menu:
+        specifier: ^2.2.0
+        version: 2.2.0(vue@3.5.5)
       vue3-cookies:
         specifier: ^1.0.6
         version: 1.0.6
@@ -235,6 +241,16 @@ packages:
   '@babel/types@7.25.6':
     resolution: {integrity: sha512-/l42B1qxpG6RdfYf343Uw1vmDjeNhneUXtzhojE7pDgfpEypmRhI6j1kr17XCVv4Cgl9HdAiQY2x0GwKm7rWCw==}
     engines: {node: '>=6.9.0'}
+
+  '@ckpack/vue-color@1.6.0':
+    resolution: {integrity: sha512-b9kFTKhYbNArfgP1lmnaVm0VNsWdZjqIbyHUYry7mZ+E7JeTQclbjq1+2xWn0SE3wzqRYlXmAVjECPOgteWmMQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      vue: ^3.2.0
+
+  '@ctrl/tinycolor@3.6.1':
+    resolution: {integrity: sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==}
+    engines: {node: '>=10'}
 
   '@docsearch/css@3.6.2':
     resolution: {integrity: sha512-vKNZepO2j7MrYBTZIGXvlUOIR+v9KRf70FApRgovWrj3GTs1EITz/Xb0AOlm1xsQBp16clVZj1SY/qaOJbQtZw==}
@@ -1777,6 +1793,9 @@ packages:
   hookable@5.5.3:
     resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
 
+  hotkeys-js@3.13.7:
+    resolution: {integrity: sha512-ygFIdTqqwG4fFP7kkiYlvayZppeIQX2aPpirsngkv1xM1lP0piDY5QEh68nQnIKvz64hfocxhBaD/uK3sSK1yQ==}
+
   html-void-elements@3.0.0:
     resolution: {integrity: sha512-bEqo66MRXsUGxWHV5IP0PUiAWwoEjba4VCzg0LjFJBpchPaTfyfCKTG6bc5F8ucKec3q5y6qOdGyYTSBEvhCrg==}
 
@@ -2021,6 +2040,12 @@ packages:
     resolution: {integrity: sha512-a54IwgWPaeBCAAsv13YgmALOF1elABB08FxO9i+r4VFk5Vl4pKokRPeX8u5TCgSsPi6ec1otfLjdOpVcgbpshg==}
     hasBin: true
 
+  material-colors@1.2.6:
+    resolution: {integrity: sha512-6qE4B9deFBIa9YSpOc9O0Sgc43zTeVYbgDT5veRKSlB2+ZuHNoVVxA1L/ckMUayV9Ay9y7Z/SZCLcGteW9i7bg==}
+
+  material-icons@1.13.12:
+    resolution: {integrity: sha512-/2YoaB79IjUK2B2JB+vIXXYGtBfHb/XG66LvoKVM5ykHW7yfrV5SP6d7KLX6iijY6/G9GqwgtPQ/sbhFnOURVA==}
+
   mdast-util-to-hast@13.2.0:
     resolution: {integrity: sha512-QGYKEuUsYT9ykKBCMOEDLsU5JRObWQusAolFMeko/tYPufNkRffBAQjIE+99jbA87xv6FgmjLtwjh9wBWajwAA==}
 
@@ -2091,6 +2116,9 @@ packages:
 
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
+
+  node-emoji@1.11.0:
+    resolution: {integrity: sha512-wo2DpQkQp7Sjm2A0cq+sN7EHKO6Sl0ctXeBdFZrL9T9+UywORbufTcTZxom8YqpLQt/FqNMUkOpkZrJVYSKD3A==}
 
   node-releases@2.0.18:
     resolution: {integrity: sha512-d9VeXT4SJ7ZeOqGX6R5EM022wpL+eWPooLI+5UpWn2jCT1aosUQEhQP214x33Wkwx3JQMvIm+tIoVOdodFS40g==}
@@ -2864,11 +2892,17 @@ packages:
   vue-doc-exporter@1.3.2:
     resolution: {integrity: sha512-Sl3tUxYrlB5UI6czi0ZPBLGNz964IqXz8kqHjBG/bNNu/VZf22IE12KHTmbegfOUkxZaaPcQ5mYEbcTaMEDGAQ==}
 
+  vue-document-editor@2.3.2:
+    resolution: {integrity: sha512-GZ96CPuw28TKP034BqY6AbCr5/NKmU2v6OSmO3vV7AVdOUfRFV0ClF1qqNVndrZnEV7GlW/DwYWKZRAeAtcMkQ==}
+
   vue-eslint-parser@9.4.3:
     resolution: {integrity: sha512-2rYRLWlIpaiN8xbPiDyXZXRgLGOtWxERV7ND5fFAv5qo1D2N9Fu9MNajBNc6o13lZ+24DAWCkQCvj4klgmcITg==}
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: '>=6.0.0'
+
+  vue-file-toolbar-menu@2.2.0:
+    resolution: {integrity: sha512-p5jhHp1MuDwzbYibX1VwXvmyUxQlwD5sY2Al+GcG5PHcFMwib1xjBDTnbhtxxNXm4THf1BjdkmZfrh/l6ppA9w==}
 
   vue-router@4.4.5:
     resolution: {integrity: sha512-4fKZygS8cH1yCyuabAXGUAsyi1b2/o/OKgu/RUb+znIYOxPRxdkytJEx+0wGcpBE1pX6vUgh5jwWOKRGvuA/7Q==}
@@ -3172,6 +3206,14 @@ snapshots:
       '@babel/helper-string-parser': 7.24.8
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
+
+  '@ckpack/vue-color@1.6.0(vue@3.5.5)':
+    dependencies:
+      '@ctrl/tinycolor': 3.6.1
+      material-colors: 1.2.6
+      vue: 3.5.5
+
+  '@ctrl/tinycolor@3.6.1': {}
 
   '@docsearch/css@3.6.2': {}
 
@@ -4860,6 +4902,8 @@ snapshots:
 
   hookable@5.5.3: {}
 
+  hotkeys-js@3.13.7: {}
+
   html-void-elements@3.0.0: {}
 
   html2canvas@1.4.1:
@@ -5092,6 +5136,10 @@ snapshots:
       punycode.js: 2.3.1
       uc.micro: 2.1.0
 
+  material-colors@1.2.6: {}
+
+  material-icons@1.13.12: {}
+
   mdast-util-to-hast@13.2.0:
     dependencies:
       '@types/hast': 3.0.4
@@ -5166,6 +5214,10 @@ snapshots:
   nanoid@5.0.7: {}
 
   natural-compare@1.4.0: {}
+
+  node-emoji@1.11.0:
+    dependencies:
+      lodash: 4.17.21
 
   node-releases@2.0.18: {}
 
@@ -6105,6 +6157,8 @@ snapshots:
       - typescript
       - universal-cookie
 
+  vue-document-editor@2.3.2: {}
+
   vue-eslint-parser@9.4.3(eslint@8.57.0):
     dependencies:
       debug: 4.3.7
@@ -6117,6 +6171,15 @@ snapshots:
       semver: 7.6.3
     transitivePeerDependencies:
       - supports-color
+
+  vue-file-toolbar-menu@2.2.0(vue@3.5.5):
+    dependencies:
+      '@ckpack/vue-color': 1.6.0(vue@3.5.5)
+      hotkeys-js: 3.13.7
+      material-icons: 1.13.12
+      node-emoji: 1.11.0
+    transitivePeerDependencies:
+      - vue
 
   vue-router@4.4.5(vue@3.5.5):
     dependencies:

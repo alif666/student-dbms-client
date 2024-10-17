@@ -19,7 +19,7 @@
   </v-app-bar>
 
   <!-- Navigation Drawer -->
-  <v-navigation-drawer flat image="@/assets/backgrounds/nav_bg.jpg" permanent rail>
+  <v-navigation-drawer v-if="$vuetify.display.mdAndUp" flat permanent rail>
     <v-divider />
 
     <!-- Navigation Items List -->

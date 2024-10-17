@@ -5,7 +5,7 @@
           hint="Duration of Exam (Hours)" />
           </v-col>
           <v-col cols="6">
-            <v-text-field v-model="examStore.exam_question_model.time_duration_minutes" prepend-icon="mdi-clock-outline" :rules="totalMarksMinutesRules" type="number" label="Duration (minutes)" min="1" max="60" step="1" variant="solo-filled"
+            <v-text-field v-model="examStore.exam_question_model.time_duration_minutes" prepend-icon="mdi-clock-outline" :rules="totalMarksMinutesRules" type="number" label="Duration (minutes)" min="0" max="60" step="1" variant="solo-filled"
           hint="Duration of Exam (Minutes)" />
           </v-col>
         </v-row>

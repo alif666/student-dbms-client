@@ -1,75 +1,46 @@
 <template>
-    <v-row align-content="space-evenly">
-      <v-col cols="2">
-        Option A:
-      </v-col>
-      <v-col cols="4">
-        <v-text-field
-          type="text"
-          v-model="question_options[0]"
-          label="Option A"
-        />
-      </v-col>
-      <v-col cols="2">
-        Option B:
-      </v-col>
-      <v-col cols="4">
-        <v-text-field
-          type="text"
-          v-model="question_options[1]"
-          label="Option B"
-        />
-      </v-col>
-    </v-row>
     <v-row>
-      <v-col cols="2">
-        Option C:
-      </v-col>
-      <v-col cols="4">
-        <v-text-field
-          type="text"
-          v-model="question_options[2]"
-          label="Option C"
-        />
-      </v-col>
-      <v-col cols="2">
-        Option D:
-      </v-col>
-      <v-col cols="4">
-        <v-text-field
-          type="text"
-          v-model="question_options[3]"
-          label="Option D"
-        />
-      </v-col>
-    </v-row>
-    <v-row align-content="space-evenly">
-      <v-col cols="12">
+      <CardElement header_title="Question 1">
+        <TemplateGeneration :content = "content" />
         <v-select
-          v-model="correct_answer"
-          :items="options"
-          item-title="name"
-          item-value="code"
-          label="Correct Option:"
-          single-line
-          hint="name"
-          hide-no-data
+          v-model="numberOfOptions"
+          :items="Array.from({ length: 19 }, (v, i) => i + 1)"
+          label="Number of Options"
         />
-      </v-col>
+      </CardElement>
     </v-row>
+  
+    <!-- Dynamically generate options based on numberOfOptions -->
+     <template v-if="numberOfOptions>0">
+        <v-row>
+    <template v-for="o in numberOfOptions" :key="o">
+   
+        <CardElement :header_title="`Option ${o}`">
+          <TemplateGeneration />
+        </CardElement>
+ 
+    </template>
+    <CardElement header_title="Correct Option">
+        <v-select
+          v-model="numberOfOptions"
+          :items="Array.from({ length: numberOfOptions }, (v, i) => i + 1)"
+          label="Correct Option"
+        />
+    </CardElement>
+</v-row>
+</template>
   </template>
   
   <script setup>
+  import { ref } from 'vue';
   const props = defineProps({
-    question_options: Array,
-    correct_answer: String,
-  });
-  
-  const options = [
-    { code: 1, name: 'Option: A' },
-    { code: 2, name: 'Option: B' },
-    { code: 3, name: 'Option: C' },
-    { code: 4, name: 'Option: D' },
-  ];
+  question_category: String,
+  iProps: Number,
+  nProps: Number, 
+});
+
+ const content = ['<h1>Hello</h1>'];
+ const fieldName = 'question_title';
+  const numberOfOptions = ref(0); // Reactive state for number of options
   </script>
   

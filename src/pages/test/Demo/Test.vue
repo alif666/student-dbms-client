@@ -3,5 +3,5 @@ import MCQTemplate from '@/components/forms/exam_form/exam_form_template/Templat
 </script>
 
 <template>
-    <MCQTemplate/>
-    </template>
+  <MCQTemplate/>
+</template>
