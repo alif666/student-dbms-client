@@ -14,6 +14,7 @@ export const useExamQuestionModelStore = defineStore('examQuestionModelStore', {
           { code: 2, name: 'Image' },
           { code: 3, name: 'TextImage'},
       ]),
+    content:ref(['<h1>Hello</h1>']),
     exam_question_model: {
       // Exam Setup & Requests
 
@@ -98,7 +99,10 @@ export const useExamQuestionModelStore = defineStore('examQuestionModelStore', {
         return true;
       }
     },
-
+    seeContent(){
+      console.log("#### SEE CONTENT ###");
+      console.log(this.content);
+    },
     addFieldToSections(fieldKey, fieldValue, sectionIndex) {
       // Ensure the section exists
       if (!this.exam_question_model.sections[sectionIndex - 1]) {
@@ -141,6 +145,12 @@ export const useExamQuestionModelStore = defineStore('examQuestionModelStore', {
       }
     },
 
+    // Reset section
+    resetSection(){
+      this.exam_question_model.sections = [];
+      this.exam_question_model.number_of_sections=0;
+    },
+
     // Create new sections if n > sections.length
     createNewSection(n) {
       const currentSectionsLength = this.exam_question_model.sections.length;
@@ -163,6 +173,18 @@ export const useExamQuestionModelStore = defineStore('examQuestionModelStore', {
       this.updateRemainingTotalMarks();
       console.log(this.exam_question_model);
     },
+
+        // Reset section
+        resetQuestion(n){
+          this.exam_question_model.sections[n].section_mark_each = 0;
+          
+          this.exam_question_model.sections[n].section_number_of_questions=0;
+
+          this.exam_question_model.question_category = null;
+          
+          this.exam_question_model.sections[n].questions = [];
+          
+        },
 
     // Create new sections if n > sections.length
     createNewQuestion(n, numberOfQuestions,question_category) {

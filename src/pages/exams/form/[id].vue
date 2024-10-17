@@ -1,8 +1,8 @@
 <template>
-    <v-container>
-        <v-card>
+    <v-container flat>
+        <!-- <v-card>
             <ExamQuestionModel />
-        </v-card>
+        </v-card> -->
         <v-stepper v-model="exam_counter" :complete="exam_counter>steps" steps="4" alt-labels :editable="false" >
             <v-stepper-header class="pt-16 mt-2">
 

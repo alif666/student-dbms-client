@@ -1,107 +1,151 @@
 <template>
-    <CardElement header_title="Questions">
-        <v-select v-model="examStore.exam_question_model.number_of_sections"
-            :items="Array.from({ length: 19 }, (v, i) => i + 1)" label="Number of Sections"
-            :rules="numberOfSectionsRules" />
-            <v-btn prepend-icon="mdi-check-bold"class="primary" variant = "outlined" @click = "examStore.createNewSection(examStore.exam_question_model.number_of_sections)">
+
+    <v-select v-model="examStore.exam_question_model.number_of_sections"
+        :items="Array.from({ length: 19 }, (v, i) => i + 1)" label="Number of Sections"
+        :rules="numberOfSectionsRules" />
+    <v-card flat>
+
+
+            <v-row class="d-flex flex-column flex-sm-row">
+
+            <v-spacer></v-spacer>
+
+            <v-btn :disabled="examStore.exam_question_model.sections.length > 0 ? true : false" prepend-icon="mdi-check-bold"
+                class="primary" variant="text"
+                @click="examStore.createNewSection(examStore.exam_question_model.number_of_sections)">
                 Create Sections
             </v-btn>
-            <!-- Create a button to generate number of sections -->
-    </CardElement>
+
+            <v-spacer></v-spacer>
+            <v-btn :disabled="examStore.exam_question_model.sections.length > 0 ? false : true" prepend-icon="mdi-restart"
+                class="primary" variant="text" @click="examStore.resetSection()">
+                Reset
+            </v-btn>
+            <v-spacer class="my-7"></v-spacer>
+            </v-row>
+        
+
+
+    </v-card>
+    <!-- Create a button to generate number of sections -->
+
     <template v-if="examStore.exam_question_model.sections.length > 0" flat>
-        <v-sheet >
-        <v-row>
-            <v-col cols="12">
-                <v-tabs v-model="tabs" direction="horizontal" next-icon="mdi-arrow-right-bold-box-outline"
-                    prev-icon="mdi-arrow-left-bold-box-outline" show-arrows>
+        <v-sheet>
+            <v-row>
+                <v-col cols="12">
+                    <v-tabs v-model="tabs" direction="horizontal" next-icon="mdi-arrow-right-bold-box-outline"
+                        prev-icon="mdi-arrow-left-bold-box-outline" show-arrows>
 
-                    <v-tab prepend-icon="mdi-check-bold" :value="n"  v-for="n in examStore.exam_question_model.number_of_sections" :key="n"
-                        :text="`Question ${n}`">
-                        
-                    </v-tab>
-                </v-tabs>
-            </v-col>
-        </v-row>
-        <v-row>
-            <!-- Tab Window Items -->
-            <v-col cols="12">
-                <v-tabs-window v-model="tabs">
-                    <template v-for="n in examStore.exam_question_model.number_of_sections" :key="n">
-                        <v-tabs-window-item :value="n">
-                            <CardElement header_title="Section No." :header_title_value="n">
-                                <v-container>
-                                    <v-row>
-                                        <v-text-field
-                                            v-model="examStore.exam_question_model.sections[n-1].section_title"
-                                            @input="(e) => examStore.addFieldToSections('section_title', e.target.value, n)"
-                                            label="Section Title:" />
-                                    </v-row>
-                                    <v-row class="d-flex flex-column flex-sm-row">
-                                        <v-col cols="12" sm="4">
-                                            <v-select
-                                                v-model="examStore.exam_question_model.sections[n-1].question_category"
-                                                @change="(val) => examStore.addFieldToSections('question_category', val, n)"
-                                                :items="examStore.question_category_lookup" item-title="name" item-value="name"
-                                                label="Type of Questions" single-line />
-                                        </v-col>
+                        <v-tab prepend-icon="mdi-check-bold" :value="n"
+                            v-for="n in examStore.exam_question_model.number_of_sections" :key="n"
+                            :text="`Section ${n}`">
 
-                                        <v-col cols="12" sm="3">
-                                            <v-select
-                                                v-model="examStore.exam_question_model.sections[n-1].section_number_of_questions"
-                                                :items="Array.from({ length: 19 }, (v, i) => i+1)"
-                                                :rules="numberOfQuestionsRules" label="Questions" />
-                                        </v-col>
+                        </v-tab>
+                    </v-tabs>
+                </v-col>
+            </v-row>
+            <v-row>
+                <!-- Tab Window Items -->
+                <v-col cols="12">
+                    <v-tabs-window v-model="tabs">
+                        <template v-for="n in examStore.exam_question_model.number_of_sections" :key="n">
+                            <v-tabs-window-item :value="n">
+                                <CardElement header_title="Section " :header_title_value="n">
+                                   
+                                    <CardElement header_title="Marks Distribution of Section " :header_title_value="n">
+                                        <v-row class="d-flex flex-column">
+                                            <v-col cols="12">
+                                                <v-text-field
+                                                    v-model="examStore.exam_question_model.sections[n - 1].section_title"
+                                                    @input="(e) => examStore.addFieldToSections('section_title', e.target.value, n)"
+                                                    label="Section Title:" />
+                                            </v-col>
 
-                                        <span class="my-9">X</span>
+                                        </v-row>
+                                        
+                                        <v-row class="d-flex flex-column flex-sm-row">
+                                            <v-col cols="12" sm="4">
+                                                <v-select
+                                                    :readonly="examStore.exam_question_model.sections[n - 1].questions.length > 0 ? true : false"
+                                                    v-model="examStore.exam_question_model.sections[n - 1].question_category"
+                                                    @change="(val) => examStore.addFieldToSections('question_category', val, n)"
+                                                    :items="examStore.question_category_lookup" item-title="name"
+                                                    item-value="name" label="Type of Questions" single-line />
+                                            </v-col>
 
-                                        <v-col cols="12" sm="3">
-                                            <v-text-field
-                                                v-model.number="examStore.exam_question_model.sections[n-1].section_mark_each"
-                                                @input="(e) => {
-                                                    const value = e.target.value === '' ? 0 : Number(e.target.value);
-                                                    examStore.addFieldToSections('section_mark_each', value, n);
-                                                }" type="number" label="Mark" min="0" step="1" />
-                                        </v-col>
+                                            <v-col cols="12" sm="3">
+                                                <v-select
+                                                    :readonly="examStore.exam_question_model.sections[n - 1].questions.length > 0 ? true : false"
+                                                    v-model="examStore.exam_question_model.sections[n - 1].section_number_of_questions"
+                                                    :items="Array.from({ length: 19 }, (v, i) => i + 1)"
+                                                    :rules="numberOfQuestionsRules" label="Questions" />
+                                            </v-col>
 
-                                        <span class="my-9">
-                                            = {{ examStore.exam_question_model.sections[n-1].section_number_of_questions * examStore.exam_question_model.sections[n-1].section_mark_each }}
-                                        </span>
-                                    </v-row>
-                                    <v-row>
-                                        <!-- <v-col cols="6"> -->
-                                        <v-btn class="secondary" prepend-icon="mdi-check-bold" variant = "outlined" @click="examStore.createNewQuestion(n-1,examStore.exam_question_model.sections[n-1].section_number_of_questions,examStore.exam_question_model.sections[n-1].question_category)">
-                                            Create Questions
-                                        </v-btn>
-                                        <!-- </v-col> -->
+                                            <span class="my-9">X</span>
 
-                                        <!-- <v-col cols="6">
-                                            <v-btn class="info" prepend-icon="mdi-restart" variant = "outlined")
-                                        </v-btn> -->
-                                            <!-- </v-col> -->
+                                            <v-col cols="12" sm="3">
+                                                <v-text-field
+                                                    :readonly="examStore.exam_question_model.sections[n - 1].questions.length > 0 ? true : false"
+                                                    v-model.number="examStore.exam_question_model.sections[n - 1].section_mark_each"
+                                                    @input="(e) => {
+                                                        const value = e.target.value === '' ? 0 : Number(e.target.value);
+                                                        examStore.addFieldToSections('section_mark_each', value, n);
+                                                    }" type="number" label="Mark" min="0" step="1" />
+                                            </v-col>
 
-                                    </v-row>
+                                            <span class="my-9">
+                                                = {{
+                                                    examStore.exam_question_model.sections[n - 1].section_number_of_questions
+                                                * examStore.exam_question_model.sections[n-1].section_mark_each }}
+                                            </span>
+                                        </v-row>
+
+                                        <v-row class="d-flex flex-column flex-sm-row">
+
+                                            
+                                            <v-spacer></v-spacer>
+                                            <v-btn class="secondary"
+                                                :disabled="examStore.exam_question_model.sections[n - 1].questions.length > 0 ? true : false"
+                                                prepend-icon="mdi-check-bold" variant="outlined"
+                                                @click="examStore.createNewQuestion(n - 1, examStore.exam_question_model.sections[n - 1].section_number_of_questions, examStore.exam_question_model.sections[n - 1].question_category)">
+                                                Create Questions
+                                            </v-btn>
+
+                                            <v-spacer></v-spacer>
+                                            <v-btn
+                                                :disabled="examStore.exam_question_model.sections[n - 1].questions.length > 0 ? false : true"
+                                                prepend-icon="mdi-restart" class="primary" variant="outlined"
+                                                @click="examStore.resetQuestion(n - 1)">
+                                                Reset
+                                            </v-btn>
+                                            <v-spacer class="my-7"></v-spacer>
+                                        
+
+                                        </v-row>
+
+                                    </CardElement>
+                                    <v-container>
+                                        <template
+                                            v-if="examStore.exam_question_model.sections[n - 1].section_number_of_questions > 0 && examStore.exam_question_model.sections[n - 1].question_category != null"
+                                            flat>
+                                            <v-row
+                                                v-for="index in examStore.exam_question_model.sections[n - 1].questions.length || 0"
+                                                :key="index">
+                                                <ExamQuestion :iProps="index" :nProps="n"
+                                                    :question_category="examStore.exam_question_model.sections[n - 1]?.question_category"
+                                                    @handleChange="(value) => examStore.updateQuestionInSection(n, index, 'question_title', value)" />
+                                            </v-row>
+                                        </template>
+                                    </v-container>
+
+                                  
+                                </CardElement>
+                            </v-tabs-window-item>
+                        </template>
 
 
-                                    <template v-if="examStore.exam_question_model.sections[n-1].section_number_of_questions > 0 && examStore.exam_question_model.sections[n-1].question_category!=null" flat>
-                                    <v-row
-                                        v-for="index in examStore.exam_question_model.sections[n-1].questions.length || 0"
-                                        :key="index">
-                                        <CardElement class="my-4" header_title="Q - " :header_title_value="index">
-                                            <ExamQuestion :i-props="index" :n-props="n"
-                                                :question_category="examStore.exam_question_model.sections[n-1]?.question_category"
-                                                @handleChange="(value) => examStore.updateQuestionInSection(n, index, 'question_title', value)" />
-                                        </CardElement>
-                                    </v-row>
-                                </template>
-
-                                </v-container>
-                            </CardElement>
-                        </v-tabs-window-item>
-                    </template>
-
-
-                </v-tabs-window>
-            </v-col>
+                    </v-tabs-window>
+                </v-col>
             </v-row>
         </v-sheet>
         <v-chip rounded="xl" size="xl"
@@ -155,4 +199,3 @@ const numberOfQuestionsRules = [
 // );
 
 </script>
-

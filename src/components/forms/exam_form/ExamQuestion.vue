@@ -7,8 +7,11 @@
     <v-text-field v-model="question.question_options[3]" label="Option D" />
     <v-select :items="question.question_options" v-model="question.correct_answer" label="Correct Answer" />
   </template> -->
+  
   <template v-if="question_category === 'MCQ'">
+    <CardElement :header_title="`Question ${nProps}-${iProps}`">
     <MCQTemplate :nProps = "nProps" :iProps="iProps"/>
+  </CardElement>
   </template>
 
 </template>
@@ -52,6 +55,8 @@ watch(
 // Method to update question data from the store when the component is mounted
 onMounted(() => {
   console.log("EXAM QUESTIONS MOUNTED #####################################");
+  console.log("iProps ",props.iProps);
+  console.log("nProps",props.nProps);
   console.log(examStore.exam_question_model.sections[props.nProps-1].questions[props.iProps-1]);
   const section = examStore.exam_question_model.sections[props.nProps - 1];
   if (section && section.questions[props.iProps - 1]) {

@@ -6,12 +6,12 @@
     <CardElement header_title ="Textfield, TextArea" >
       <vue-file-toolbar-menu :content="menu" class="bar" />
       <vue-document-editor class="d-flex cardClass editor" ref="editor"
-      v-model:content="content"
+      v-model:content="examStore.exam_question_model.sections[sectionIndex].question[questionIndex]"
       :zoom="zoom"
       :page_format_mm="page_format_mm"
       :page_margins="page_margins"
       :display="display" />
-      {{ content }} 
+      {{ examStore.content }} 
 
     </CardElement>
   
@@ -24,24 +24,33 @@
 
 <script>
 import VueFileToolbarMenu from 'vue-file-toolbar-menu';
-import VueDocumentEditor from '../DocumentEditor/DocumentEditor.vue'; // set from 'vue-document-editor' in your application
-import InvoiceTemplate from './InvoiceTemplate.ce.vue';
+ import VueDocumentEditor from '../DocumentEditor/DocumentEditor.vue'; // set from 'vue-document-editor' in your application
+// import InvoiceTemplate from './InvoiceTemplate.ce.vue';
 import { markRaw } from 'vue';
 import CardElement from '@/components/CardElement.vue';
-
+import { useExamQuestionModelStore } from '@/stores/examQuestionModelStore';
 export default {
   components: { VueDocumentEditor, VueFileToolbarMenu },
   props: {
-    content: {
-      type: Array,
-      default: () => []
+    fieldName: {
+      type: String,
+      required: true
     },
-    fieldName: String
+    sectionIndex: {
+      type: Number,
+      required: true
+    },
+    questionIndex: {
+      type: Number,
+      required: true
+    }
   },
+
+ 
   data () {
     return {
       // This is where the pages content is stored and synced
-      content: this.content,
+      
       zoom: 1.0,
       zoom_min: 0.10,
       zoom_max: 5.0,
@@ -50,11 +59,30 @@ export default {
       display: "vertical", // ["grid", "vertical", "horizontal"]
       mounted: false, // will be true after this component is mounted
       undo_count: -1, // contains the number of times user can undo (= current position in content_history)
-      content_history: [] // contains the content states for undo/redo operations
-    }
+      content_history: [], // contains the content states for undo/redo operations
+      questionCategory: null,
+      examStore: useExamQuestionModelStore(),
+      contentData:  useExamQuestionModelStore().content,  // Initialize from props
+      fieldNameData: this.fieldName // Initialize from props
+    };
   },
-
+  watch: {
+    contentData: {
+      immediate: true,
+      deep: true,
+      handler(new_content) {
+        if (!this.examStore._mute_next_content_watcher) {
+          // Add content to the specific question within the section
+          // this.examStore.updateQuestionInSection(this.sectionIndex, this.questionIndex, this.fieldName, new_content);
+          console.log('Content added to the questions array:', new_content);
+        }
+      }
+    }
+    // return ends
+    },
   created () {
+   
+    
     // Initialize gesture flags
     let start_zoom_gesture = false;
     let start_dist_touch = false;
@@ -391,8 +419,10 @@ export default {
           this.content_history.length = this.undo_count + 1; // remove all redo items
         }
         this._mute_next_content_watcher = false;
+        console.log("######### NEW CONTENT ######### ",new_content);
       }
-    }
+    },
+    
   }
 }
 </script>
